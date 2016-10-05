@@ -24,18 +24,23 @@
             'esri/graphic',
             'esri/request',
             'esri/tasks/RelationshipQuery',
+            'esri/tasks/StatisticDefinition',
             'dojo/DeferredList',
             'esri/tasks/IdentifyTask',
             'esri/tasks/IdentifyParameters',
             'esri/tasks/QueryTask',
             'esri/tasks/query',
             'gcviz-gissymbol'
-    ], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriFeatLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, dojoDefList, esriIdTask, esriIdParams, esriQueryTsk, esriQuery) {
+    ], function($viz, gisMap, gisGeo, gcvizFunc, esriGraphLayer, esriFeatLayer, esriLine, esriFill, esriMarker, esriPoint, esriPoly, esriPolyline, esriSR, esriGraph, esriRequest, esriRelRequest, esriStats, dojoDefList, esriIdTask, esriIdParams, esriQueryTsk, esriQuery) {
         var initialize,
             getStaticData,
             getData,
             loadData,
             getSelection,
+            getStatistics,
+            getCount,
+            getStatsBack,
+            errBack,
             createDataArray,
             closeGetData,
             createGraphic,
@@ -109,7 +114,7 @@
         };
 
         getStaticData = function(mapid, url, layer, success) {
-            var xmlhttp = new XMLHttpRequest()
+            var xmlhttp = new XMLHttpRequest();
 
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -215,6 +220,60 @@
             // call the success function with the result
             queryTask.on('complete', function(evt) {
                 success(evt.featureSet.features);
+            });
+        };
+
+        getStatistics = function (url, fieldname, defQuery, success) {
+            var stats = [];
+
+            var min = new esriStats();
+            min.statisticType = "min";
+            min.onStatisticField = fieldname;
+            min.outStatisticFieldName = "min";
+
+            var max = new esriStats();
+            max.statisticType = "max";
+            max.onStatisticField = fieldname;
+            max.outStatisticFieldName = "max";
+
+            var count = new esriStats();
+            count.statisticType = "count";
+            count.onStatisticField = fieldname;
+            count.outStatisticFieldName = "count";
+
+            var queryParams = new esriQuery();
+            queryParams.returnGeometry = false;
+            queryParams.where = defQuery;
+            queryParams.outStatistics = [ min, max, count ];
+
+            var queryTask = new esriQueryTsk(url);
+
+            // queryTask.execute(queryParams, getStatsBack, errBack);
+            queryTask.execute(queryParams);
+
+            // call the success function with the result
+            // queryTask.on('complete', getStatsBack);
+            queryTask.on('complete', function(evt) {
+                // success(evt.featureSet.features[0].attributes);
+                success(evt.featureSet.features);
+            });
+        };
+
+        getCount = function (url, defQuery, success) {
+            var query,
+                queryTask = new esriQueryTsk(url);
+
+            // define query
+            query = new esriQuery();
+            query.where = defQuery;
+
+            // queryTask.execute(queryParams, getStatsBack, errBack);
+            queryTask.executeForCount(query);
+
+            // call the success function with the result
+            // queryTask.on('complete', getStatsBack);
+            queryTask.on('execute-for-count-complete', function(evt) {
+                success(evt.count);
             });
         };
 
@@ -676,6 +735,10 @@
             getStaticData: getStaticData,
             getData: getData,
             getSelection: getSelection,
+            getStatistics: getStatistics,
+            getCount:getCount,
+            getStatsBack: getStatsBack,
+            errBack: errBack,
             zoomFeatures: zoomFeatures,
             drawSpatialExtent: drawSpatialExtent,
             showSpatialExtent: showSpatialExtent,

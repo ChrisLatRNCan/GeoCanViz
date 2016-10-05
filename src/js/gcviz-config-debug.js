@@ -387,20 +387,20 @@
                 name: 'gcviz-v-tbextract',
                 location: locationPath + 'src/js/widgets/views',
                 main: 'toolbarextractV'
-            },{
+            }, {
                 name: 'gcviz-vm-tbextract',
                 location: locationPath + 'src/js/widgets/viewmodels',
                 main: 'toolbarextractVM'
             }, {
-                name: 'gcviz-v-tbslider',
+                name: 'gcviz-v-tbrangeslider',
                 location: locationPath + 'src/js/widgets/views',
-                main: 'toolbarsliderV'
-            },{
-                name: 'gcviz-vm-tbslider',
-                location: locationPath + 'src/js/widgets/viewmodels',
-                main: 'toolbarsliderVM'
+                main: 'toolbarrangesliderV'
             }, {
-                name: 'gcviz-v-map',
+                name: 'gcviz-vm-tbrangeslider',
+                location: locationPath + 'src/js/widgets/viewmodels',
+                main: 'toolbarrangesliderVM'
+            }, {
+				name: 'gcviz-v-map',
                 location: locationPath + 'src/js/widgets/views',
                 main: 'mapV'
             }, {

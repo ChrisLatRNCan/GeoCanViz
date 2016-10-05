@@ -127,7 +127,7 @@
                 cfgLeg = config.toolbarlegend,
                 cfgData = config.toolbardata,
                 cfgExtract = config.toolbarextract,
-                cfgSlider,
+                cfgSlider = config.toolbarrangeslider,
                 tools = ['', '', '', '', ''];
 
             // check what toolbar is enable, the order and the index of the expand one.
@@ -162,15 +162,13 @@
                                     '</h3>' +
                                     '<div class="gcviz-tbextract-content gcviz-tbcontent" gcviz-exp="' + cfgExtract.expand + '" tabindex="-1"></div>';
             }
-            if (typeof config.toolbarslider !== 'undefined') {
-                cfgSlider = config.toolbarslider;
-                if (cfgSlider.enable) {
-                    tools[cfgSlider.pos] = '<h3 class="gcviz-panel-title" data-bind="panelBlur">' +
-                                            '<span data-bind="contextHelp: { text: sliderTitle; alt: sliderAlt; img: imgHelpBubble; id: \'tbslider' + mapid + '\'; link: \'gcviz-help-tbslider\' }"></span>' +
-                                        '</h3>' +
-                                        '<div class="gcviz-tbslider-content gcviz-tbcontent" gcviz-exp="' + cfgSlider.expand + '" tabindex="-1"></div>';
-                }
+            if (cfgSlider.enable) {
+                tools[cfgSlider.pos] = '<h3 class="gcviz-panel-title" data-bind="panelBlur">' +
+                                        '<span data-bind="contextHelp: { text: rangesliderTitle; alt: rangesliderAlt; img: imgHelpBubble; id: \'tbrangeslider' + mapid + '\'; link: \'gcviz-help-tbrangeslider\' }"></span>' +
+                                    '</h3>' +
+                                    '<div class="gcviz-tbrangeslider-content gcviz-tbcontent" gcviz-exp="' + cfgSlider.expand + '" tabindex="-1"></div>';
             }
+
             // remove coma between toolbars. Make sure to keep inner coma.
             return tools.toString().replace(/,/g, '').replace(/;/g, ',');
         };

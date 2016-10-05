@@ -1,0 +1,290 @@
+@import "gcviz-mixin";
+
+input[type=number]::-webkit-inner-spin-button {
+    opacity: 1
+}
+
+.vert-margin-05 {
+    margin: .25em 0!important;
+}
+
+.vert-margin-1 {
+    margin: .5em 0!important;
+}
+
+.vert-margin-2 {
+    margin: 1em 0!important;
+}
+
+.vert-margin-4 {
+    margin: 2em 0!important;
+}
+
+.gcviz-table {
+    display: table;
+    table-layout: fixed;
+    text-align: center;
+    font-family: inherit;
+    background-color: transparent;
+    width: 100%;
+    border-spacing: 0.1em;
+    margin-top: 1em!important;
+    margin-bottom: 0!important;
+}
+
+.gcviz-rslider-prtinter {
+    font-size: 0.8em!important;
+    font-weight: bold!important;
+}
+
+.gcviz-rslider-interval {
+   font-size: 0.8em!important;
+   font-weight: normal!important;
+}
+.gcviz-tbl-row {
+    display: table-row;
+    width: 100%;
+    height: 2.0em;
+}
+
+.row-head {
+    background-color: #DDDDDD;
+    font-size: 0.8em!important;
+    font-weight: bold!important;
+    height: 2.5em!important;
+}
+
+.row-select {
+    background-color: rgba(201, 13, 16, 0.43);
+}
+
+.row-extent {
+    background-color: rgb(153, 196, 205);
+}
+
+.col-row-head {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 0.87em!important;
+    font-weight: bold!important;
+    width: 100%;
+}
+
+.col-min, .col-max, .col-delta {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    font-size: 0.8em;
+}
+
+.in-min, .in-max {
+    input {
+        // width: 100%!important;
+        // height: 100%!important;
+        margin: 0!important;
+        padding: 0!important;
+        display: inline-block;
+        border: none!important;
+        border-radius: 0!important;
+        text-align: inherit;
+        font-weight: bold!important;
+        font-style: inherit;
+        width: 100%;
+    };
+}
+
+.in-min {
+    input {
+        background-color: #d7d1b4!important;
+        color: #000000!important;
+    };
+}
+
+.in-max {
+    input {
+        background-color: #000000!important;
+        color: #ffffff!important;
+    };
+}
+
+.col-nbrelm {
+    display: table-cell;
+    vertical-align: middle;
+    width: 120%;;
+    font-size: 0.8em;
+}
+
+.col-percent {
+    display: table-cell;
+    vertical-align: middle;
+    width: 60%;
+}
+
+.gcviz-rslider-wgt.ui-slider {
+    width: auto;
+    height: 3em!important;
+    // histo- height: 6em!important;
+    margin-right: .5em!important;
+    margin-left: .5em!important;
+    margin-top: 1.75em!important;
+    margin-bottom: 1.5em!important;
+    border-radius: 0!important;
+    // image full widht and smaller in height
+    background-size: 100% 5em;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    // put preserveAspectRatio="none" after viewBox in svg so vertical stretch is possible
+    // https://css-tricks.com/scale-svg/
+    // histo- background-image: url("//localhost:80/GeoCanViz/demos/RSlider/Geochrons.svg");
+    background-color: rgb(153, 196, 205);
+    pointer-events: auto;
+
+    // .ui-slider-handle .ui-state-default .ui-icon  {
+    //     background-image: none!important;
+    //     cursor: -webkit-grab!important;
+    // };
+
+    .ui-slider-handle:active {
+        cursor: -moz-grabbing!important;
+        cursor: -webkit-grabbing!important;
+        cursor: grabbing!important;
+    }
+
+    .ui-slider-handle:hover:focus:active {
+        cursor: -moz-grabbing!important;
+        cursor: -webkit-grabbing!important;
+        cursor: grabbing!important;
+    }
+
+    .ui-slider-handle {
+        pointer-events: auto;
+        cursor: -moz-grab!important;
+        cursor: -webkit-grab!important;
+        cursor: grab!important;
+        border-width: thin;
+        border-color: #808c9c!important;
+        background-color: #d7d1b4!important;
+        height: 1.0em!important;
+        width: 1.0em!important;
+        // histo- top: 6em + 0.1em!important;
+        top: 3em + 0.1em!important;
+        border-top-left-radius: 0!important;
+        border-top-right-radius: 0!important;
+        border-bottom-left-radius: 6px!important;
+        border-bottom-right-radius: 6px!important;
+    };
+
+    .ui-slider-handle ~ .ui-slider-handle {
+        border-color: #808c9c!important;
+        background-color: #000000!important;
+    };
+
+    .ui-slider-range {
+        pointer-events: auto;
+        border: none!important;
+        background-repeat: repeat!important;
+        background-image: none!important;
+        background-color: rgba(201, 13, 16, 0.43)!important;
+        font-weight: bold;
+        border-radius: 0!important;
+        border-right-style: solid!important;
+        border-right-color: rgba(201,13,16,1.0)!important;
+        border-right-width: thin!important;
+        border-left-style: solid!important;
+        border-left-color: rgba(201,13,16,1.0)!important;
+        border-left-width: thin!important;
+    };
+
+    .ui-slider-range {
+        cursor: -moz-grab!important;
+        cursor: -webkit-grab!important;
+        cursor: grab!important;
+    };
+
+   .ui-slider-range:active {
+       cursor: -moz-grabbing!important;
+       cursor: -webkit-grabbing!important;
+       cursor: grabbing!important;
+   };
+
+}
+
+.gcviz-lock-btn {
+    position: relative;
+    right: 0.25em;
+    bottom: 4.9em;
+    // histo- bottom: 7.9em;
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 18px;           /* make this the size of your image */
+    width: 18px;
+    border:thin solid #808c9c;
+    border-bottom-left-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+    border-top-left-radius: 6px!important;
+    border-top-right-radius: 6px!important;
+    background-position: center;
+    vertical-align: middle; /* align the text vertically centered */
+}
+
+.gcviz-lock-state {
+    //@include sprite($img-spritebtn, -1882, -30);
+    background-image: url($img-root + "lock.png"); /* 16px x 16px */
+}
+
+.gcviz-unlock-state {
+    //@include sprite($img-spritebtn, -1882, -30);
+    background-image: url($img-root + "unlock.png"); /* 16px x 16px */
+}
+
+.gcviz-media-ctrl {
+    // padding-top: 0.5em;
+    display: block;
+    text-align: center;
+}
+
+.gcviz-custom16-btn {
+    display: inline-block;
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 24px;           /* make this the size of your image */
+    width: 24px;
+    margin: 4px;
+    border:thin solid #808c9c;
+    border-radius: 100%;
+    background-position: center;
+    vertical-align: middle; /* align the text vertically centered */
+}
+
+.gcviz-stepbw-btn {
+    //@include sprite($img-spritebtn, -1882, -30);
+    background-image: url($img-root + "step-backward.png"); /* 16px x 16px */
+}
+
+.gcviz-playbw-btn {
+    //@include sprite($img-spritebtn, -1882, -8);
+    background-image: url($img-root + "play-reverse.png"); /* 16px x 16px */
+}
+
+.gcviz-playfw-btn {
+    //@include sprite($img-spritebtn, -1902, -8);
+    background-image: url($img-root + "play.png"); /* 16px x 16px */
+}
+
+.gcviz-pause-btn {
+    background-image: url($img-root + "pause.png"); /* 16px x 16px */
+}
+
+.gcviz-stepfw-btn {
+    //@include sprite($img-spritebtn, -1902, -30);
+    background-image: url($img-root + "step-forward.png"); /* 16px x 16px */
+    margin-right: -20px!important;
+}
+
+.gcviz-reset-btn {
+    //@include sprite($img-spritebtn, -1902, -30);
+    background-image: url($img-root + "refresh.png"); /* 16px x 16px */
+    float: right;
+    margin-left: 0!important;
+    margin-top: 1.5em!important;
+}

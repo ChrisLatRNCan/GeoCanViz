@@ -421,7 +421,7 @@
                 $element.accordion(options);
             }
 
-            if (typeof $refresh !== '#undefined') {
+            if (typeof $refresh !== 'undefined') {
                 $refresh.focus(function() {
                     if (typeof $element !== 'undefined') {
                         if ($element.hasClass('ui-accordion')) {
@@ -457,6 +457,194 @@
                     valueAccessor().call(viewModel, bindingContext.$data);
                 }
             });
+        }
+    };
+
+
+    /// http://jsfiddle.net/yBfTy/4/ - boutton
+    // http://jsfiddle.net/N9uwx/50/
+    ko.bindingHandlers.rslider = {
+        init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+            var options = allBindingsAccessor().sliderOptions || {},
+                sliderValues = ko.utils.unwrapObservable(valueAccessor()),
+                extOptions = { clientX: { x: 0 }, valDelta: 0, mouseDown: false },
+                $el = $viz(element);
+
+            ko.utils.extend(options, extOptions);
+
+            $el.slider(options);
+
+            // to manage range selection
+            // we need to follow the cursor position in the client area
+            // so we can determine the cursor offset
+            // $el.children()[0] is the range and $el.children()[1|2] are the handles
+            ko.utils.registerEventHandler($el.children()[0], 'mousedown', function(e) {
+                var $inst = $el.slider('instance'),
+                    $opt = $inst.options;
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                $opt.clientX.x = e.clientX;
+
+                $opt.valDelta = $opt.values[1] - $opt.values[0];
+                $opt.mouseDown = true;
+            });
+
+            // to manage range dragging
+            ko.utils.registerEventHandler($el.children()[0], 'mousemove', function(e) {
+                var clientX = {x: e.clientX},
+                    $inst = $el.slider('instance'),
+                    $opt = $inst.options;
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                if ($opt.mouseDown === true) {
+                    var xSliderPrev, xSlider, deltaXSlider,
+                        minHdlT, maxHdlT;
+
+                    xSliderPrev = $inst._normValueFromMouse($opt.clientX);
+                    xSlider = $inst._normValueFromMouse(clientX);
+
+                    deltaXSlider = xSlider - xSliderPrev;
+
+                    // are we in or out
+                    minHdlT = $opt.values[0] + deltaXSlider;
+                    minHdlT = minHdlT < $opt.max &&
+                                minHdlT >= $opt.min ? minHdlT : $opt.values[0];
+                    maxHdlT = $opt.values[1] + deltaXSlider;
+                    maxHdlT = maxHdlT > $opt.min &&
+                                maxHdlT <= $opt.max ? maxHdlT : $opt.values[1];
+
+                    $opt.clientX.x = clientX.x;
+
+                    // update the slider
+                    if ( (maxHdlT - minHdlT) === $opt.valDelta) {
+                        $el.slider('values',[minHdlT, maxHdlT]);
+                        $opt.slide(e, $opt);
+                    }
+                }
+            });
+
+            // to manage range dragging outside the extent
+            ko.utils.registerEventHandler($el, 'mousemove', function(e) {
+                var clientX = {x: e.clientX},
+                    $inst = $el.slider('instance'),
+                    $opt = $inst.options;
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                if ($opt.mouseDown === true) {
+                    var xSliderPrev, xSlider, deltaXSlider,
+                        minHdlT, maxHdlT;
+
+                    xSliderPrev = $inst._normValueFromMouse($opt.clientX);
+                    xSlider = $inst._normValueFromMouse(clientX);
+
+                    deltaXSlider = xSlider - xSliderPrev;
+
+                    // are we in or out
+                    minHdlT = $opt.values[0] + deltaXSlider;
+                    minHdlT = minHdlT < $opt.max &&
+                                minHdlT >= $opt.min ? minHdlT : $opt.values[0];
+                    maxHdlT = $opt.values[1] + deltaXSlider;
+                    maxHdlT = maxHdlT > $opt.min &&
+                                maxHdlT <= $opt.max ? maxHdlT : $opt.values[1];
+
+                    $opt.clientX.x = clientX.x;
+
+                    // update the slider
+                    if ( (maxHdlT - minHdlT) === $opt.valDelta) {
+                        $el.slider('values',[minHdlT, maxHdlT]);
+                        $opt.slide(e, $opt);
+                    }
+                }
+            });
+
+            // when the cursor move away from the range
+            ko.utils.registerEventHandler($el.children()[0], 'mouseleave', function(e) {
+                var clientX = {x: e.clientX},
+                    $inst = $el.slider('instance'),
+                    $opt = $inst.options;
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                if ($opt.mouseDown === true && $opt.values[0] === $opt.values[1] ) {
+
+                    var xSliderPrev, xSlider, deltaXSlider, minMaxHdlT;
+
+                    // get the slider position from the cursor position in the client area
+                    xSliderPrev = $inst._normValueFromMouse($opt.clientX);
+                    xSlider = $inst._normValueFromMouse(clientX);
+
+                    deltaXSlider = xSlider - xSliderPrev;
+
+                    minMaxHdlT = $opt.values[0] + deltaXSlider;
+                    minMaxHdlT = minMaxHdlT <= $opt.max &&
+                                    minMaxHdlT >= $opt.min ? minMaxHdlT : $opt.values[0];
+
+                    $opt.clientX.x = clientX.x;
+
+                    // update the slider
+                    $el.slider('values',[minMaxHdlT, minMaxHdlT]);
+                    $opt.slide(e, $opt);
+                }
+            });
+
+            // when the cursor is no more active
+            ko.utils.registerEventHandler($el.children()[0], 'mouseup', function(e) {
+                var $opt = $el.slider('instance').options;
+
+                e.preventDefault();
+
+                // update the slider
+                if ($opt.mouseDown === true) {
+                    $opt.stop(e, $opt);
+                    $el.slider('option','mouseDown', false);
+                }
+            });
+
+            // when the cursor is desactivated in the parent area
+            ko.utils.registerEventHandler($el.parents(), 'mouseup', function(e) {
+                var $opt = $el.slider('instance').options;
+
+                if ($opt.mouseDown === true) {
+                    e.preventDefault();
+                    var val;
+
+                    // get the latest possible values
+                    if ($opt.values[0] === $opt.values[1]) {
+                        if ($opt.values[0] === ($opt.min + $opt.step)){
+                            val = $opt.min;
+                            $el.slider('values',[val, val]);
+                            $opt.slide(e, $opt);
+                        } else if ($opt.values[0] === ($opt.max - $opt.step)) {
+                            val = $opt.max;
+                            $el.slider('values',[val, val]);
+                            $opt.slide(e, $opt);
+                        }
+
+                    }
+                    $opt.stop(e, $opt);
+                    $el.slider('option','mouseDown', false);
+                }
+            });
+
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                $el.slider("destroy");
+            });
+
+
+        },
+        update: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+            var sliderValues = ko.utils.unwrapObservable(valueAccessor()),
+                $el = $viz(element);
+
+            $el.slider('values',[sliderValues.min, sliderValues.max]);
+
         }
     };
 

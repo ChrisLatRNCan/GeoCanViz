@@ -182,7 +182,7 @@
                             "name": "limites",
                             "title": "Limites"
                         }],
-                        "visiblelayers": ["Limites"] 
+                        "visiblelayers": ["Limites"]
                     },
                     "scale": {
                             "min": 145000000,
@@ -690,7 +690,7 @@
             "logo": false
         },
         "toolbarlegend": {
-            "enable": true,
+            "enable": false,
             "expand": false,
             "pos": 1,
             "basemaps": [{
@@ -971,7 +971,7 @@
                             }]
                         },
                         "items": []
-                    
+
                 }, {
                     "expand": false,
                     "last": false,
@@ -2285,7 +2285,7 @@
         "toolbarnav": {
             "enable": true,
             "expand": true,
-            "pos": 0,
+            "pos": 5,
             "mapwkid": 3978,
             "geolocation": {
                 "enable": true,
@@ -2319,11 +2319,21 @@
             	"enable": false
             }
         },
-        "toolbarextract": {
+        "toolbarrangeslider": {
             "enable": true,
+            "expand": true,
+            "pos": 0,
+            "root": {
+                "min": 0,
+                "max": 4600,
+                "interval": 100
+            }
+        },
+        "toolbarextract": {
+            "enable": false,
             "expand": false,
             "pos": 3,
-            "grid":{ 
+            "grid":{
 				"enable": true,
 				"id":"bbbb469d-aaaa-c8f5-175c-645200a6b6fe"
             },

@@ -1,0 +1,36 @@
+"toolbarrangeslider": {
+    "enable": true,
+    "expand": true,
+    "pos": 0,
+    "common": {
+        "data": {
+            "type": "number",
+            "format": "D,D"
+        },
+        "histogram": true
+    },
+    "parent": {
+        "minmax": {
+            "enable": true,
+            "min": 0,
+            "max": 4700
+        },
+        "interval": 100,
+        "unit": "millions d'années"
+    },
+    "child": {
+        "interval": 10,
+        "unit": "millions d'années"
+    },
+    "layer": {
+            "layerinfo": {
+                "type": 4,
+                "index": 1,
+                "id": "6f798c6b-f369-4e24-78dd-9bfa5a9bc59e"
+            },
+            "field": {
+                "title": "Âge (millions d'années)",
+                "data": "AGE"
+            }
+    }
+},

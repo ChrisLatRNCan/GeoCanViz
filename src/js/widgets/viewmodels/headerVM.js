@@ -16,6 +16,7 @@
             'gcviz-ko',
             'gcviz-func',
             'gcviz-vm-tbextract',
+			'gcviz-vm-tbrangeslider',
             'gcviz-vm-print',
             'gcviz-vm-help'
     ], function($viz, ko, media, gisPrint, i18n, binding, gcvizFunc, extractVM, printVM, helpVM) {
@@ -91,9 +92,8 @@
                 _self.dataAlt = i18n.getDict('%toolbardata-alt');
                 _self.extractTitle = i18n.getDict('%toolbarextract-name');
                 _self.extractAlt = i18n.getDict('%toolbarextract-alt');
-                _self.sliderTitle = i18n.getDict('%toolbarslider-name');
-                _self.sliderAlt = i18n.getDict('%toolbarslider-alt');
-
+                _self.rangesliderTitle = i18n.getDict('%toolbarrangeslider-name');
+                _self.rangesliderAlt = i18n.getDict('%toolbarrangeslider-alt');
                 // about dialog box
                 _self.lblAboutTitle = i18n.getDict('%header-tpabout');
                 _self.isAboutDialogOpen = ko.observable(false);
@@ -349,7 +349,7 @@
                 };
 
                 _self.dialogPrintOk = function() {
-                    mapVM.saveImageMap(mapid, _self.printInfo.templatesave, _self.isForceScale(), _self.printInfo.title, _self.enablePrint);
+                     mapVM.saveImageMap(mapid, _self.printInfo.templatesave, _self.isForceScale(), _self.printInfo.title, _self.enablePrint);
                     _self.isPrint(false);
                     _self.dialogPrintClose();
                 };

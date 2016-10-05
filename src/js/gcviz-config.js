@@ -391,14 +391,14 @@
                 name: 'gcviz-vm-tbextract',
                 location: locationPath + 'gcviz/js/viewmodels',
                 main: 'toolbarextractVM-min'
-            }, {
-                name: 'gcviz-v-tbslider',
+            },{
+                name: 'gcviz-v-tbrangeslider',
                 location: locationPath + 'gcviz/js/views',
-                main: 'toolbarsliderV-min'
+                main: 'toolbarrangesliderV-min'
             }, {
-                name: 'gcviz-vm-tbslider',
+                name: 'gcviz-vm-tbrangeslider',
                 location: locationPath + 'gcviz/js/viewmodels',
-                main: 'toolbarsliderVM-min'
+                main: 'toolbarrangesliderVM-min'
             }, {
                 name: 'gcviz-v-map',
                 location: locationPath + 'gcviz/js/views',
